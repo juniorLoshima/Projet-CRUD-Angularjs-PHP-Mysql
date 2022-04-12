@@ -1,0 +1,187 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD ANGULARJS - Mysql</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/navbar-top-fixed.css">
+    <!--
+    version supérieure
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <!--kit fontawesome-->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body ng-app="mon_app" ng-controller="mon_controller" ng-init="displayData()">
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+        <div class="container-fluid">
+            <h2>CRUD : ANGULARJS-MYSQL </h2>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="votre mot">
+                    <button class="btn btn-success" type="submit">Recherche</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        <div class="bg-light p-5 rounded">
+            <button type="submit" class="btn btn-primary" style="margin-bottom: 15px; float:right;" data-bs-toggle="modal" data-bs-target="#ajout">Ajouter</button> <br> <br>
+            <div class="alert alert-success alert-dismissible fade show" role="alert" ng-if="message">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+
+                        <th scope="col">Id</th>
+                        <th scope="col">Prenom</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in users">
+                        <th scope="row">{{x.id}}</th>
+                        <td>{{x.prenom}}</td>
+                        <td>{{x.nom}}</td>
+                        <td>{{x.email}}</td>
+                        <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modification" ng-click="update(x.id,x.prenom,x.nom,x.email)"><i class="fas fa-edit"></i></button> <button class="btn btn-danger" style="margin-left: 7px;"
+                                data-bs-toggle="modal" data-bs-target="#suppression" ng-click="update(x.id,x.prenom,x.nom,x.email)"><i class="fas fa-trash-alt"></i></button></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal ajout-->
+    <div class="modal fade" id="ajout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajout utilisateur</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Prenom</label>
+                            <input type="text" class="form-control" id="recipient-name" placeholder="votre prenom" ng-model="prenom">
+                            <label id="erreur-prenom" style="color: red;"></label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Nom</label>
+                            <input type="text" class="form-control" id="recipient-name" placeholder="votre nom" ng-model="nom">
+                            <label id="erreur-nom" style="color: red;"></label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Email</label>
+                            <input type="text" class="form-control" id="recipient-name" placeholder="crud@gmail.com" ng-model="email">
+                            <label id="erreur-email" style="color: red;"></label>
+                            <input type="hidden" class="form-control" id="recipient-name" ng-model="id" name="id">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" ng-click="insertData()" data-bs-dismiss="modal">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal modification-->
+    <div class="modal fade" id="modification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form method="post">
+                        <input type="hidden" ng-model="id" name="id">
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Prenom</label>
+                            <input type="text" class="form-control" id="recipient-name" placeholder="votre prenom" ng-model="prenom" name="prenom">
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Nom</label>
+                            <input type="text" class="form-control" id="recipient-name" placeholder="votre nom" ng-model="nom" name="nom">
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Email</label>
+                            <input type="text" class="form-control" id="recipient-name" placeholder="crud@gmail.com" ng-model="email" name="email">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" ng-click="updateData()" data-bs-dismiss="modal">modifier</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal suppresion-->
+    <div class="modal fade" id="suppression" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: red;">Etes-vous sûr de cette suppression?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form method="post">
+                        <input type="hidden" ng-model="id" name="id">
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Prenom</label>
+                            <input type="text" class="form-control" id="recipient-name" placeholder="votre prenom" ng-model="prenom" name="prenom" disabled>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Nom</label>
+                            <input type="text" class="form-control" id="recipient-name" placeholder="votre nom" ng-model="nom" name="nom" disabled>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Email</label>
+                            <input type="text" class="form-control" id="recipient-name" placeholder="crud@gmail.com" ng-model="email" name="email" disabled>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+                    <button type="button" class="btn btn-primary" ng-click="deleteData()" data-bs-dismiss="modal">Oui</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="./js/app.js" async></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
