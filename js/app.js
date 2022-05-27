@@ -1,5 +1,6 @@
 app = angular.module("mon_app", []);
 app.controller("mon_controller", function($scope, $http) {
+
     //méthode d'insertion des données vers la BDD
     $scope.insertData = function() {
             if ($scope.prenom == null) {
@@ -44,13 +45,13 @@ app.controller("mon_controller", function($scope, $http) {
             });
         }
         // méthode pour la suppression 
-    $scope.deleteData = function() {
+    $scope.deleteData = function(data) {
         $http.post(
             "suppression.php", {
-                'id': $scope.id,
+                'id': $scope.id
             }
-        ).success(function(data) {
-            $scope.message = data;
+        ).success(function() {
+            $scope.message = "Suppression effectuée avec succès";
             $scope.displayData();
         });
     }

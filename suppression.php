@@ -14,4 +14,4 @@ $form_data = json_decode(file_get_contents("php://input"));
     $message = 'Suppression effectuée avec succès';
    }
 echo $message; 
-?>
+?> 

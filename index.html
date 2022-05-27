@@ -21,7 +21,7 @@
 <body ng-app="mon_app" ng-controller="mon_controller" ng-init="displayData()">
     <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
         <div class="container-fluid">
-            <h2>CRUD : ANGULARJS-MYSQL </h2>
+            <h2>CRUD : ANGULARJS-PHP-MYSQL </h2>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -30,7 +30,7 @@
 
                 </ul>
                 <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="votre mot">
+                    <input class="form-control me-2" type="search" placeholder="tapez ici..." aria-label="votre mot">
                     <button class="btn btn-success" type="submit">Recherche</button>
                 </form>
             </div>
@@ -43,6 +43,7 @@
                 {{message}}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+            
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -66,10 +67,14 @@
 
                 </tbody>
             </table>
+            <center>
+                <a href="#" style="text-decoration:none; font-weight:bold"> Programmed by Junior Loshima</a>
+            </center>
         </div>
+
     </main>
 
-    <!-- Modal ajout-->
+    <!--Modal ajout-->
     <div class="modal fade" id="ajout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

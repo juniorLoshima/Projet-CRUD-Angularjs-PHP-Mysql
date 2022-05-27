@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 13 avr. 2022 à 01:20
+-- Généré le : ven. 27 mai 2022 à 12:15
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.0.14
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `angularjs`
+-- Base de données : `angularcrud`
 --
 
 -- --------------------------------------------------------
@@ -29,9 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `prenom` varchar(20) NOT NULL,
-  `nom` varchar(25) NOT NULL,
-  `email` varchar(40) NOT NULL
+  `prenom` varchar(50) NOT NULL,
+  `nom` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -39,8 +39,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `prenom`, `nom`, `email`) VALUES
-(1, 'junior', 'loshima', 'juniorloshima0@gmail.com'),
-(2, 'sabine', 'loshima', 'sabine@gmail.com');
+(1, 'junior', 'loshima', 'junior@gmail.com'),
+(2, 'ibrahima', 'diagne', 'diagne@gmail.com'),
+(3, 'Ibrahima', 'diagne', 'diagne@gmail.com'),
+(4, 'awa', 'seck', 'seck@gmail.com'),
+(5, 'Felix', 'diagne', 'diagne@gmail.com'),
+(6, 'junior', 'Loshima', 'juniorloshima0@gmail.com');
 
 --
 -- Index pour les tables déchargées
@@ -60,7 +64,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
